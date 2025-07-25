@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Tareas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Crea una nueva tarea</a>
 </p>
-<table class="table">
+<table class="table table-secondary">
     <thead>
         <tr>
             <th>
@@ -31,18 +31,15 @@
                 @Html.DisplayNameFor(model => model.Prioridad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Usuario)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Proyecto)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
                 @Html.DisplayFor(modelItem => item.Titulo)
             </td>
             <td>
@@ -61,17 +58,17 @@
                 @Html.DisplayFor(modelItem => item.Prioridad)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Apellido)
+                @Html.DisplayFor(modelItem => item.ProyectoId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Proyecto.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" class="btn btn-secondary" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+
+Total registro: @ViewBag.TotalTareas<br/>

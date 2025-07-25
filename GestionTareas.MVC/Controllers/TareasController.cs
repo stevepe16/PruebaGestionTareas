@@ -12,7 +12,8 @@ public class TareasController : Controller
         public ActionResult Index()
         {
             var data = Crud<Tarea>.GetAll();
-            ViewBag.TotalTareas = data.Count;
+            ViewBag.Proyectos = GetProyectos(); //Traemos todos los Proyectos relacionados con las tareas
+            ViewBag.TotalTareas = data.Count; //Tenemos un contador de tareas para el index
             return View(data);
         }
 

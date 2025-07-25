@@ -39,8 +39,8 @@ namespace GestionTareas.Api.Controllers
         [HttpPost]
         public Tarea Post([FromBody]Tarea tarea)
         {
-            connection.Execute("INSERT INTO Tareas (Titulo, Descripcion, FechaCreacion, FechaVencimiento, Estado, UsuarioId, ProyectoId) " +
-                               "VALUES (@Titulo, @Descripcion, @FechaCreacion, @FechaVencimiento, @Estado, @UsuarioId, @ProyectoId)",
+            connection.Execute("INSERT INTO Tareas (Titulo, Descripcion, FechaCreacion, FechaVencimiento, Estado, Prioridad, UsuarioId, ProyectoId) " +
+                               "VALUES (@Titulo, @Descripcion, @FechaCreacion, @FechaVencimiento, @Estado, @Prioridad, @UsuarioId, @ProyectoId)",
                                new
                                {
                                    Titulo = tarea.Titulo,
@@ -48,6 +48,7 @@ namespace GestionTareas.Api.Controllers
                                    FechaCreacion = tarea.FechaCreacion,
                                    FechaVencimiento = tarea.FechaVencimiento,
                                    Estado = tarea.Estado,
+                                   Prioridad = tarea.Prioridad,
                                    UsuarioId = tarea.UsuarioId,
                                    ProyectoId = tarea.ProyectoId
                                });
@@ -59,7 +60,7 @@ namespace GestionTareas.Api.Controllers
         public void Put(int id, [FromBody]Tarea tarea)
         {
             connection.Execute(@"UPDATE Tareas SET Titulo=@Titulo, Descripcion=@Descripcion, FechaCreacion=@FechaCreacion, 
-                                FechaVencimiento=@FechaVencimiento, Estado=@Estado, UsuarioId=@UsuarioId, ProyectoId=@ProyectoId 
+                                FechaVencimiento=@FechaVencimiento, Estado=@Estado, Prioridad=@Prioridad,  UsuarioId=@UsuarioId, ProyectoId=@ProyectoId 
                                 WHERE Id=@Id",
                                 new
                                 {
@@ -68,6 +69,7 @@ namespace GestionTareas.Api.Controllers
                                     FechaCreacion = tarea.FechaCreacion,
                                     FechaVencimiento = tarea.FechaVencimiento,
                                     Estado = tarea.Estado,
+                                    Prioridad = tarea.Prioridad,
                                     UsuarioId = tarea.UsuarioId,
                                     ProyectoId = tarea.ProyectoId,
                                     id
@@ -79,6 +81,18 @@ namespace GestionTareas.Api.Controllers
         public void Delete(int id)
         {
             connection.Execute("DELETE FROM Tareas WHERE Id = @Id", new { Id = id });
+        }
+
+        // GET api/Tareas/ProyectoId/1
+        [HttpGet("ProyectoId/{id}")]
+        public IEnumerable<Tarea> GetByProyectoId(int id)
+        {
+            var tareas = connection.Query<Tarea>(
+                "SELECT * FROM Tareas WHERE ProyectoId = @ProyectoId",
+                new { ProyectoId = id }
+            ).ToList();
+
+            return tareas;
         }
     }
 }

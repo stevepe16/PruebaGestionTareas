@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Gestion.Modelos;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using GestionTareas.MVC.Models;
 namespace GestionTareas.MVC.Controllers;
 
 public class ProyectosController : Controller
@@ -20,9 +21,20 @@ public class ProyectosController : Controller
         // GET: ProyectosController/Details/5
         public ActionResult Details(int id)
         {
-            var data = Crud<Proyecto>.GetById(id);
-            return View(data);
+        var proyecto = Crud<Proyecto>.GetById(id);
+        if (proyecto == null)
+        {
+            return NotFound(); 
         }
+        var tareas = Crud<Tarea>.GetBy("ProyectoId", id); 
+        var model = new ProyectoDetallesViewModel
+        {
+            Proyecto = proyecto,
+            Tareas = tareas
+        };
+
+        return View(model);
+    }
 
         // GET: ProyectosController/Create
         public ActionResult Create()
