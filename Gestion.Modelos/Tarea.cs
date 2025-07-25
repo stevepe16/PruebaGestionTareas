@@ -15,6 +15,7 @@ namespace Gestion.Modelos
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public string Estado { get; set; } // Ejemplo: "Pendiente", "En Progreso", "Completada"
+        public string Prioridad { get; set; }
 
         //Foring Keys
         public int UsuarioId { get; set; }

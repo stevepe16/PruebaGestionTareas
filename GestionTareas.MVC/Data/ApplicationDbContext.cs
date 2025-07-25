@@ -12,4 +12,6 @@ public class ApplicationDbContext : IdentityDbContext
     }
 
 public DbSet<Gestion.Modelos.Proyecto> Proyecto { get; set; } = default!;
+
+public DbSet<Gestion.Modelos.Tarea> Tarea { get; set; } = default!;
 }

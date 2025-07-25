@@ -39,14 +39,12 @@ namespace GestionTareas.Api.Controllers
         [HttpPost]
         public Usuario Post([FromBody]Usuario usuario)
         {
-            connection.Execute(@"INSERT INTO Usuarios (Nombre, Apellido, Correo, Contraseña, ProyectoId) 
-                                VALUES (@Nombre, @Apellido, @Correo, @Contraseña, @ProyectoId)",
+            connection.Execute(@"INSERT INTO Usuarios (Nombre, Apellido, ProyectoId) 
+                                VALUES (@Nombre, @Apellido, @ProyectoId)",
                                 new
                                 {
                                     Nombre = usuario.Nombre,
                                     Apellido = usuario.Apellido,
-                                    Correo = usuario.Correo,
-                                    Contraseña = usuario.Contraseña,
                                     ProyectoId = usuario.ProyectoId
                                 });
             return usuario;
@@ -56,13 +54,11 @@ namespace GestionTareas.Api.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]Usuario usuario)
         {
-            connection.Execute(@"UPDATE Usuarios SET Nombre=@Nombre, Apellido=@Apellido, Correo=@Correo, Contraseña=@Contraseña, ProyectoId=@ProyectoId WHERE Id=@Id",
+            connection.Execute(@"UPDATE Usuarios SET Nombre=@Nombre, Apellido=@Apellido, ProyectoId=@ProyectoId WHERE Id=@Id",
                             new
                             {
                                 Nombre = usuario.Nombre,
                                 Apellido = usuario.Apellido,
-                                Correo = usuario.Correo,
-                                Contraseña = usuario.Contraseña,
                                 ProyectoId = usuario.ProyectoId,
                                 id
                             });
